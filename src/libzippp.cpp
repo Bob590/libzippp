@@ -881,7 +881,7 @@ int ZipArchive::readEntry(const ZipEntry& zipEntry, std::function<bool(const voi
         libzippp_uint64 maxSize = zipEntry.getSize();
         if (!chunksize) { chunksize = LIBZIPPP_DEFAULT_CHUNK_SIZE; } // use the default chunk size (512K) if not specified by the user
     
-        if (maxSize<chunksize) {
+        if (maxSize && maxSize<chunksize) {
             char* data = NEW_CHAR_ARRAY(maxSize)
             if (data!=nullptr) {
                 libzippp_int64 result = zip_fread(zipFile, data, maxSize);
